@@ -1,0 +1,45 @@
+http://rosettacode.org/wiki/Levenshtein_distance#Java
+The Levenshtein distance algorithm
+
+
+
+
+// f1,f2,f3,f4,f5,f6 tables are created for sno and review 1 or 0
+create table f1(sno int not null auto_increment, f1 int, primary key(sno));
+
+//ab is created to merge all  features
+create table ab
+select * from f1
+union all
+select * from f2
+union all
+select * from f3
+union all
+select * from f4
+union all
+select * from f5
+union all
+select * from f6;
+
+
+//final is created to have all avg score of each review
+
+create table final
+select sno, avg(f1)
+from ab
+group by sno;
+
+//abc is for training data
+//finalt is for training data
+
+
+//confusion matrix in r
+
+library(caret)
+final<-read.csv(file="book1.csv")
+predicted<-as.factor(final$predicted)
+actual=as.factor(final$actual)
+results <- confusionMatrix(data=predicted, reference=actual)
+results
+
+	
